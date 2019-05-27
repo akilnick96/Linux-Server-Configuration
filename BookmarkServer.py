@@ -1,5 +1,5 @@
 
-from BaseHTTPServer import BaseHTTPRequestHandler
+import http.server
 import requests
 import os
 from urllib.parse import unquote, parse_qs
