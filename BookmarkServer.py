@@ -6,6 +6,9 @@ from urllib.parse import unquote, parse_qs
 import threading
 from socketserver import ThreadingMixIn
 
+class ThreadHTTPServer(ThreadingMixIn, http.server.HTTPServer):
+    "This is an HTTPServer that supports thread-based concurrency."
+    
 memory = {}
 
 form = '''<!DOCTYPE html>
@@ -44,7 +47,7 @@ def CheckURI(uri, timeout=5):
         return False
 
 
-class ThreadHTTPServer(ThreadingMixIn, http.server.HTTPServer):
+class Shortener(http.server.BaseHTTPRequestHandler):
     "This is an HTTPServer that supports thread-based concurrency."
     def do_GET(self):
         # A GET request will either be for / (the root path) or for /some-name.
